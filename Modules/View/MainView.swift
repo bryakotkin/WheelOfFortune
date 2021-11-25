@@ -9,6 +9,16 @@ import UIKit
 
 class MainView: UIView {
     
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 34, weight: .bold)
+        label.text = "WheelOfFortune"
+        label.textAlignment = .center
+        label.textColor = .white
+        
+        return label
+    }()
+    
     let wheel: WheelView = {
         let wheel = WheelView()
         return wheel
@@ -17,6 +27,7 @@ class MainView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        addSubview(titleLabel)
         addSubview(wheel)
         
         setupConstraints()
@@ -27,7 +38,16 @@ class MainView: UIView {
     }
     
     private func setupConstraints() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         wheel.translatesAutoresizingMaskIntoConstraints = false
+        
+        var constraints = [NSLayoutConstraint]()
+        
+        let titleLabel = [
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: wheel.topAnchor)
+        ]
         
         let wheelConstraint = [
             wheel.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
@@ -36,6 +56,9 @@ class MainView: UIView {
             wheel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ]
         
-        NSLayoutConstraint.activate(wheelConstraint)
+        constraints.append(contentsOf: titleLabel)
+        constraints.append(contentsOf: wheelConstraint)
+        
+        NSLayoutConstraint.activate(constraints)
     }
 }
