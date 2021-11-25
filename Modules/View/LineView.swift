@@ -9,7 +9,7 @@ import UIKit
 
 class LineView: UIView {
     
-    let subTitle: UILabel = {
+    var subTitle: UILabel = {
         let subTitle = UILabel()
         subTitle.text = "?"
         return subTitle

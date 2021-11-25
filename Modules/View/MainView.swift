@@ -10,7 +10,7 @@ import UIKit
 class MainView: UIView {
     
     let wheel: WheelView = {
-        let wheel = WheelView(numberOfTriangle: 21)
+        let wheel = WheelView()
         return wheel
     }()
 

@@ -9,16 +9,15 @@ import UIKit
 
 class WheelView: UIView {
     
-    var numberOfTriangle: Int
     var angle: CGFloat = 0
     var width: CGFloat = 0
     var height: CGFloat = 0
     
     var triangles: [LineView] = []
     
-    init(frame: CGRect = .zero, numberOfTriangle: Int) {
-        self.numberOfTriangle = numberOfTriangle
-        
+    var points: [Int] = []
+    
+    override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
@@ -27,6 +26,9 @@ class WheelView: UIView {
     }
     
     public func setupWheel() {
+        
+        let numberOfTriangle = points.count
+        
         angle = CGFloat(360) / CGFloat(numberOfTriangle) / CGFloat(2)
         width = bounds.midX
         height = tan(angle * .pi / 180) * width * 2
@@ -38,6 +40,7 @@ class WheelView: UIView {
             triangle.transform = triangle.transform.rotated(by: CGFloat(index * 2) * angle * .pi / 180)
             let color: UIColor = Int(index) == 0 ? .fromHex(hex: 0xFFE5B4) : index % 2 == 0 ? .fromHex(hex: 0xF3F4F6) : .white
             triangle.backgroundColor = color
+            triangle.subTitle.text = points[index].description
             
             triangles.append(triangle)
             
@@ -60,7 +63,7 @@ class WheelView: UIView {
     }
     
     private func getRandomRotationCoefficient() -> Int {
-        let arr = Array(1...numberOfTriangle)
+        let arr = Array(1...points.count)
         
         return arr.randomElement()!
     }

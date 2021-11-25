@@ -9,6 +9,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    var points = Array(1...10)
+    
     var mainView: MainView {
         return view as! MainView
     }
@@ -26,6 +28,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        mainView.wheel.points = points
         mainView.wheel.setupWheel()
     }
 }
